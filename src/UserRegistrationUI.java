@@ -96,12 +96,22 @@ public class UserRegistrationUI extends JFrame{
                 passed.setFont(bigFont);
                 valid.add(passed);
                  */
-                JLabel passed = new JLabel("Registration passed all validations.");
-                Font bigFont = new Font("Serif", Font.BOLD, 20);
-                passed.setFont(bigFont);
-                valid.add(passed);
 
-                valid.setVisible(true);
+                Validator validatorChain = setUpValidatorChain();
+
+                try{
+                    validatorChain.validate(user);
+                    JLabel passed = new JLabel("Registration passed all validations.");
+                    Font bigFont = new Font("Serif", Font.BOLD, 20);
+                    passed.setFont(bigFont);
+                    valid.add(passed);
+
+                    valid.setVisible(true);
+                } catch (ValidationException ex) {
+                    System.out.println("Validation fialed: " + ex.getMessage());
+                }
+
+
 
             }
         });
