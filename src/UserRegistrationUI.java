@@ -108,7 +108,10 @@ public class UserRegistrationUI extends JFrame{
 
                     valid.setVisible(true);
                 } catch (ValidationException ex) {
-                    System.out.println("Validation fialed: " + ex.getMessage());
+                    JOptionPane.showMessageDialog(null,
+                            ex.getMessage(),
+                            "Validation Error",
+                            JOptionPane.ERROR_MESSAGE);
                 }
 
 
