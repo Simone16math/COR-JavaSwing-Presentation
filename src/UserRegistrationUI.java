@@ -86,22 +86,26 @@ public class UserRegistrationUI extends JFrame{
                         phoneNumberField.getText()
                 );
 
+                try {
+                    // Run the validator chain
+                    Validator validatorChain = setUpValidatorChain();
+                    validatorChain.validate(user);
 
-                /*
-                Validator validatorChain = setUpValidatorChain();
-                validatorChain.validate(user);
-                // if it does work
-                JLabel passed = new JLabel("Registration passed all validations.");
-                Font bigFont = new Font("Serif", Font.BOLD, 20);
-                passed.setFont(bigFont);
-                valid.add(passed);
-                 */
-                JLabel passed = new JLabel("Registration passed all validations.");
-                Font bigFont = new Font("Serif", Font.BOLD, 20);
-                passed.setFont(bigFont);
-                valid.add(passed);
+                    // if it does work
+                    JLabel passed = new JLabel("Registration passed all validations.");
+                    Font bigFont = new Font("Serif", Font.BOLD, 20);
+                    passed.setFont(bigFont);
+                    valid.add(passed);
 
-                valid.setVisible(true);
+                    valid.setVisible(true);
+
+                } catch (IllegalArgumentException exception) {
+                    // If it fails
+                    JOptionPane.showMessageDialog(null,
+                            exception.getMessage(),
+                            "Validation Error",
+                            JOptionPane.ERROR_MESSAGE);
+                }
 
             }
         });

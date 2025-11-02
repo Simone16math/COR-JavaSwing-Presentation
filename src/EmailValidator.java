@@ -1,5 +1,6 @@
 public class EmailValidator implements Validator{
     private Validator nextValidator;
+    private static final String EMAIL_REGEX = "^[A-Za-z0-9.+_-]+@[A-Za-z0-9.-]+\\.[A-Za-z]{2,}$";
 
     @Override
     public void setNextValidator(Validator nextValidator){
@@ -13,16 +14,13 @@ public class EmailValidator implements Validator{
          */
         String email = registration.getEmail();
 
-        if (email != null){
-            if (email.contains("@") && email.contains(".")){
-                // if the email contains an @ and it contains a . we might be okay
-                // need to test this as the example code seems like it should be more complicated
-            }
-            // if the email is valid
-            if (nextValidator != null){
-                nextValidator.validate(registration);
-            }
+        if (email == null || !email.matches(EMAIL_REGEX)){
+            throw new IllegalArgumentException("Invalid email format");
         }
-        // the email is null so do something here
+
+        // if the email is valid
+        if (nextValidator != null){
+            nextValidator.validate(registration);
+        }
     }
 }

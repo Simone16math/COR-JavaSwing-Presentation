@@ -1,5 +1,6 @@
 public class PhoneNumberValidator implements Validator{
     private Validator nextValidator;
+    private static final String PHONE_REGEX = "^\\d{10}$";
 
     @Override
     public void setNextValidator(Validator nextValidator){
@@ -11,17 +12,12 @@ public class PhoneNumberValidator implements Validator{
 
         String phoneNumber = registration.getPhoneNumber();
 
-        if (phoneNumber != null){
-            if (phoneNumber.length() == 10){
-                // if the "phone number" is 10 digits
-                // want to make sure that they are all numbers 0-9
-                // how to do that?
-            }
-            // if valid
-            if (nextValidator != null){
-                nextValidator.validate(registration);
-            }
+        if (phoneNumber == null || !phoneNumber.matches(PHONE_REGEX)) {
+            throw new IllegalArgumentException("Invalid phone number format");
         }
-        // if the phone number is null what to do next?
+            // if valid
+        if (nextValidator != null){
+                nextValidator.validate(registration);
+        }
     }
 }
