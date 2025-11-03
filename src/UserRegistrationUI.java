@@ -33,7 +33,7 @@ public class UserRegistrationUI extends JFrame{
         add(title);
 
 
-        // Add a Username field
+        // Username
         gbc.gridx = 0;
         gbc.gridy = 1;
         add(new JLabel("Username:"), gbc);
@@ -41,7 +41,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(usernameField, gbc);
 
-        // Add a Password field
+        // Password
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(new JLabel("Password:"), gbc);
@@ -49,15 +49,15 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(passwordField, gbc);
 
-        // Add an Email address field
+        // Email address
         gbc.gridx = 0;
         gbc.gridy = 3;
-        add(new JLabel("Email address:"), gbc);
+        add(new JLabel("Email:"), gbc);
         JTextField emailField = new JTextField(20);
         gbc.gridx = 1;
         add(emailField, gbc);
 
-        // Add a Phone Number field
+        // Phone number
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(new JLabel("Phone number:"), gbc);
@@ -65,14 +65,13 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(phoneNumberField, gbc);
 
-        // Add a Register button
+        // Register button
         gbc.gridx = 0;
         gbc.gridy = 5;
         JButton registerButton = new JButton("Register");
         gbc.gridx = 1;
         add(registerButton, gbc);
         registerButton.addActionListener(new ActionListener() {
-            // when the button is pressed
             @Override
             public void actionPerformed(ActionEvent e) {
                 JFrame valid = new JFrame("Confirmation");
@@ -87,6 +86,17 @@ public class UserRegistrationUI extends JFrame{
                         phoneNumberField.getText()
                 );
 
+
+                /*
+                Validator validatorChain = setUpValidatorChain();
+                validatorChain.validate(user);
+                // if it does work
+                JLabel passed = new JLabel("Registration passed all validations.");
+                Font bigFont = new Font("Serif", Font.BOLD, 20);
+                passed.setFont(bigFont);
+                valid.add(passed);
+                 */
+
                 Validator validatorChain = setUpValidatorChain();
 
                 try{
@@ -98,12 +108,14 @@ public class UserRegistrationUI extends JFrame{
 
                     valid.setVisible(true);
                 } catch (ValidationException ex) {
-                    System.out.println("Validation failed: " + ex.getMessage());
                     JOptionPane.showMessageDialog(null,
                             ex.getMessage(),
                             "Validation Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
+
+
+
             }
         });
 
@@ -124,6 +136,8 @@ public class UserRegistrationUI extends JFrame{
     }
 
     public static void main(String[] args){
+        //Validator validatorChain = setUpValidatorChain();
+
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
