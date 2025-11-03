@@ -1,6 +1,8 @@
 public class PasswordValidator implements Validator{
+    // Attribute
     private Validator nextValidator;
 
+    // sets the next validator
     @Override
     public void setNextValidator(Validator nextValidator){
         this.nextValidator = nextValidator;

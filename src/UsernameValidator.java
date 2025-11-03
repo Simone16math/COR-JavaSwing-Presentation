@@ -2,6 +2,7 @@ public class UsernameValidator implements Validator{
     // Attribute
     private Validator nextValidator;
 
+    // sets the next validator
     @Override
     public void setNextValidator(Validator nextValidator){
         // sets the next validator

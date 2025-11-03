@@ -24,7 +24,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.insets = new Insets(5, 5, 5, 5);
         gbc.anchor = GridBagConstraints.WEST;
 
-        // Big font testing
+        // Added a title for the Frame
         gbc.gridx = 0;
         gbc.gridy = 0;
         JLabel title = new JLabel("User Registration");
@@ -33,7 +33,7 @@ public class UserRegistrationUI extends JFrame{
         add(title);
 
 
-        // Username
+        // Add a Username field
         gbc.gridx = 0;
         gbc.gridy = 1;
         add(new JLabel("Username:"), gbc);
@@ -41,7 +41,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(usernameField, gbc);
 
-        // Password
+        // Add a Password field
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(new JLabel("Password:"), gbc);
@@ -49,7 +49,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(passwordField, gbc);
 
-        // Email address
+        // Add an Email address field
         gbc.gridx = 0;
         gbc.gridy = 3;
         add(new JLabel("Email:"), gbc);
@@ -57,7 +57,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(emailField, gbc);
 
-        // Phone number
+        // Add a Phone number field
         gbc.gridx = 0;
         gbc.gridy = 4;
         add(new JLabel("Phone number:"), gbc);
@@ -65,20 +65,23 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 1;
         add(phoneNumberField, gbc);
 
-        // Register button
+        // Add a Register button field
         gbc.gridx = 0;
         gbc.gridy = 5;
         JButton registerButton = new JButton("Register");
         gbc.gridx = 1;
         add(registerButton, gbc);
         registerButton.addActionListener(new ActionListener() {
+            // if the button is pressed
             @Override
             public void actionPerformed(ActionEvent e) {
+                // create a new JFrame
                 JFrame valid = new JFrame("Confirmation");
                 valid.setSize(400, 300);
                 valid.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
                 valid.setLocationRelativeTo(null);
 
+                // create a new user and get their credentials based on the fields they typed in
                 UserRegistration user = new UserRegistration(
                         usernameField.getText(),
                         passwordField.getText(),
@@ -86,35 +89,27 @@ public class UserRegistrationUI extends JFrame{
                         phoneNumberField.getText()
                 );
 
-
-                /*
-                Validator validatorChain = setUpValidatorChain();
-                validatorChain.validate(user);
-                // if it does work
-                JLabel passed = new JLabel("Registration passed all validations.");
-                Font bigFont = new Font("Serif", Font.BOLD, 20);
-                passed.setFont(bigFont);
-                valid.add(passed);
-                 */
-
+                // set up the validator chain
                 Validator validatorChain = setUpValidatorChain();
 
                 try{
+                    // start validating the credentials
                     validatorChain.validate(user);
+
+                    // if everything is fine
                     JLabel passed = new JLabel("Registration passed all validations.");
                     Font bigFont = new Font("Serif", Font.BOLD, 20);
                     passed.setFont(bigFont);
                     valid.add(passed);
-
                     valid.setVisible(true);
+
                 } catch (ValidationException ex) {
+                    // one or more of the credentials were incorrect so we instead show an error message
                     JOptionPane.showMessageDialog(null,
                             ex.getMessage(),
                             "Validation Error",
                             JOptionPane.ERROR_MESSAGE);
                 }
-
-
 
             }
         });
@@ -123,21 +118,22 @@ public class UserRegistrationUI extends JFrame{
     }
 
     public static Validator setUpValidatorChain(){
+        // creating the validators
         Validator usernameValidator = new UsernameValidator();
         Validator passwordValidator = new PasswordValidator();
         Validator emailValidator = new EmailValidator();
         Validator phoneNumberValidator = new PhoneNumberValidator();
 
+        // setting up the validators
         usernameValidator.setNextValidator(passwordValidator);
         passwordValidator.setNextValidator(emailValidator);
         emailValidator.setNextValidator(phoneNumberValidator);
 
+        // returning the first validator
         return usernameValidator;
     }
 
     public static void main(String[] args){
-        //Validator validatorChain = setUpValidatorChain();
-
         SwingUtilities.invokeLater(() -> {
             try {
                 UIManager.setLookAndFeel(UIManager.getSystemLookAndFeelClassName());
