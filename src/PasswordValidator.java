@@ -11,21 +11,6 @@ public class PasswordValidator implements Validator{
 
         String password = registration.getPassword();
 
-//        if (password != null){
-//            if (password.length() < 8){
-//                // the password is too short
-//                // do something so that it stops
-//            }
-//
-//            // need to check if uppercase, lowercase and digit is present
-//            // message saying that the password is valid
-//
-//            if (nextValidator != null){
-//                nextValidator.validate(registration);
-//            }
-//
-//        }
-
         // if the password is null OR is less than 8 characters OR
         // if the passwords does not contain at least one uppercase letter, one lowercase letter and one digit
         if (password == null || password.length() <8 ||
