@@ -45,7 +45,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(new JLabel("Password:"), gbc);
-        JTextField passwordField = new JTextField(20);
+        JPasswordField passwordField = new JPasswordField(20);
         gbc.gridx = 1;
         add(passwordField, gbc);
 
