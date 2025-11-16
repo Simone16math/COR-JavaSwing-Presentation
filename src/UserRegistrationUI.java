@@ -45,7 +45,7 @@ public class UserRegistrationUI extends JFrame{
         gbc.gridx = 0;
         gbc.gridy = 2;
         add(new JLabel("Password:"), gbc);
-        JPasswordField passwordField = new JPasswordField(20);
+        JTextField passwordField = new JTextField(20);
         gbc.gridx = 1;
         add(passwordField, gbc);
 
@@ -75,45 +75,51 @@ public class UserRegistrationUI extends JFrame{
             // if the button is pressed
             @Override
             public void actionPerformed(ActionEvent e) {
-                // create a new JFrame
-                JFrame valid = new JFrame("Confirmation");
-                valid.setSize(400, 300);
-                valid.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-                valid.setLocationRelativeTo(null);
-
-                // create a new user and get their credentials based on the fields they typed in
-                UserRegistration user = new UserRegistration(
-                        usernameField.getText(),
-                        passwordField.getText(),
-                        emailField.getText(),
-                        phoneNumberField.getText()
-                );
-
-                // set up the validator chain
-                Validator validatorChain = setUpValidatorChain();
-
-                try{
-                    // start validating the credentials
-                    validatorChain.validate(user);
-
-                    // if everything is fine
-                    JLabel passed = new JLabel("Registration passed all validations.");
-                    Font bigFont = new Font("Serif", Font.BOLD, 20);
-                    passed.setFont(bigFont);
-                    valid.add(passed);
-                    valid.setVisible(true);
-
-                } catch (ValidationException ex) {
-                    // one or more of the credentials were incorrect so we instead show an error message
-                    JOptionPane.showMessageDialog(null,
-                            ex.getMessage(),
-                            "Validation Error",
-                            JOptionPane.ERROR_MESSAGE);
-                }
+                // call the registerUser method
+                registerUser(usernameField, passwordField,emailField,phoneNumberField);
 
             }
         });
 
+    }
+
+    // Allows the checks registration
+    public void registerUser(JTextField usernameField, JTextField passwordField, JTextField emailField, JTextField phoneNumberField){
+        // create a new JFrame
+        JFrame valid = new JFrame("Confirmation");
+        valid.setSize(400, 300);
+        valid.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        valid.setLocationRelativeTo(null);
+
+        // create a new user and get their credentials based on the fields they typed in
+        UserRegistration user = new UserRegistration(
+                usernameField.getText(),
+                passwordField.getText(),
+                emailField.getText(),
+                phoneNumberField.getText()
+        );
+
+        // set up the validator chain
+        Validator validatorChain = setUpValidatorChain();
+
+        try{
+            // start validating the credentials
+            validatorChain.validate(user);
+
+            // if everything is fine
+            JLabel passed = new JLabel("Registration passed all validations.");
+            Font bigFont = new Font("Serif", Font.BOLD, 20);
+            passed.setFont(bigFont);
+            valid.add(passed);
+            valid.setVisible(true);
+
+        } catch (ValidationException ex) {
+            // one or more of the credentials were incorrect so we instead show an error message
+            JOptionPane.showMessageDialog(null,
+                    ex.getMessage(),
+                    "Validation Error",
+                    JOptionPane.ERROR_MESSAGE);
+        }
     }
 
     public static Validator setUpValidatorChain(){

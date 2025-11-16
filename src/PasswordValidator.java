@@ -19,7 +19,7 @@ public class PasswordValidator implements Validator{
                 !password.matches(".*[A-Z].*") ||
                 !password.matches(".*[a-z].*") ||
                 !password.matches(".*[0-9].*")) {
-            throw new ValidationException("Password muct be at least 8 characters long with at least one " +
+            throw new ValidationException("Password must be at least 8 characters long with at least one " +
                     "uppercase, one lowercase and one digit.");
         }
         // if the password is valid
